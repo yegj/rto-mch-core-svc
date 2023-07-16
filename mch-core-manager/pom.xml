@@ -86,6 +86,11 @@
         </dependency>
 
         <dependency>
+            <groupId>cn.sino</groupId>
+            <artifactId>sino-common</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.sction</groupId>
             <artifactId>phprpc</artifactId>
         </dependency>
