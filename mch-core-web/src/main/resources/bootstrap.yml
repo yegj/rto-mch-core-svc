@@ -1,0 +1,5 @@
+#apollo 未启用
+apollo:
+   bootstrap:
+      namespaces: application,TEST1.apollo,application.yaml
+

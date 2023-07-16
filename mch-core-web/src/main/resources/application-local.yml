@@ -1,0 +1,121 @@
+apollo:
+  bootstrap:
+    enabled: false
+
+mock_backend: true
+
+spring:
+  profiles:
+    active: dev
+
+  redis:
+    host: localhost
+    timeout: 3000
+    database: 1
+    password: 123456
+    jedis:
+      pool:
+        max-active: 10
+        max-wait: 1000
+        max-idle: 10
+        min-idle: 2
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/0_ESTART_MERCHANT?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=Hongkong&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,wall,config
+      filter:
+        stat:
+          log-slow-sql: true
+          merge-sql: true
+          slow-sql-millis: 4000
+      connection-properties: druid.stat.mergeSql=false;druid.stat.slowSqlMillis=3000
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: '*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*'
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: false
+        allow: ''
+        login-username: admin
+        login-password: Fs123456
+
+sino:
+  auth-center:
+    host: http://localhost:7076
+  trackify:
+    mainUrl: https://rto-study.oss-us-west-1.aliyuncs.com/test-v4.js
+    cashe-version: v4
+    domain: https://app-api.rto.ai/rto-omnipixel-test
+    googleRun: https://omnitrack-event-api-sandbox.rto.ai
+    phpDomain: https://app-api.rto.ai/test-pixel-api
+    nodeJsDomain:
+rto:
+  config:
+    txON: 0
+    app:
+      tracking-test1:
+        appName: tracking-test1
+        facebookAppName: omnitrack-facebook-test
+        googleAppName: omnitrack-google-test
+        platform: '[{"name":"FACEBOOK","pixelReg":"^\\d{15,16}$","pixelRegMsg":" FACEBOOK pixel id  must 15 or 16 digits"},{"name":"GOOGLE","pixelReg":"^UA-\\d{8,9}-\\d{1}$","pixelRegMsg":" GOOGLE pixel id  invalid"}]'
+        targetAreaTypes: Entire Store,Collection,Tag
+        ##第三方授权等级:空或0为无需第三方授权,2:google或facebook授权,3:google并且facebook授权
+        thridAuthLevel: 1
+        shopifyApiVersion: 2021-04
+        facebookApiVersion: v14.0
+        googleApiVersion: v3
+        ##收费配置
+        billings:
+          base:
+            billingCode: base
+            type: recurringCharges
+            name: standard
+            amount: 9.9
+            terms: 9.9/30
+            test: true
+            pixelSize: 5
+          rtoStandard:
+            billingCode: rtoStandard
+            type: recurringCharges
+            name: rtoStandard
+            amount: 9.9
+            terms: 9.9/30
+            test: true
+            pixelSize: 5
+          rtoAdvanced:
+            billingCode: rtoAdvanced
+            type: recurringCharges
+            name: rtoAdvanced
+            amount: 28.9
+            terms: 28.9/30
+            test: true
+            pixelSize: 20
+          rtoPremium:
+            billingCode: rtoPremium
+            type: recurringCharges
+            name: rtoPremium
+            amount: 159.9
+            terms: 159.9/30
+            test: true
+            pixelSize: 999
+gcp:
+  serviceAccount: '{"type": "service_account","project_id": "omnitrack-test-359902","private_key_id": "eba939594f55233553747ce94ab63dbf9361463b","private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCTjvCTZM0MzIst\nu4bFrhbnUVJ04ZtVoTjCUEiv2urLYxjsxEJq7ePMPTrqO1kGgWB3PVyiNYT9ki3O\nN75Sy7yZfG26U92KZoX9KUmQA/RF/lO1jBY+enfclEsxRnTi9Ovt+F8WxaiG+pXe\nOqfrvwsS0lBpsEusvOqyZZkwtIjLzzXtzxXDoa+aaTX8xCSQ5Of7kRR3g96cVTFZ\nW3Mtt0r1SYZmWAk/FrDixwJhk2AhcTflK5A4Buav/1XSxYaBVV4z8F6fc1q5ckRR\nkEqY1b+v6cetY/R4FPIXs7r99FLntDVXWBcmbKBX7aKCt221tY+ZydrCUSBuPnOU\n1C1pFRO1AgMBAAECggEAIEhwWWr/EpsIozGJL6QiJissVV6Ll80tSBP9Bx5n6qYM\nbLaWimLwCP3nbxobZNk24/eUlfeMGFccNucKuH4TDeiDcDXLfS1niKb5DW1UCuE0\n6r4Smso8AZIfLlFqHsJzgK2rjiWh9KAL3GIsXV8/erdxOOJFeC4f0fZ48Mc6u44N\ntuJuMevXA+6aC7FSitbgnuNwfLa4WVw68YMYMTt+8J1KmnP5jLvdnd5Bw+GxDOdm\nB1cp+L5s1wcmdwxe/E2yQKTbnioDfSYlivwn8KXw+72fOOe82PIoNON6ubHmLiWq\n4+nqMuTcZe8r77R2CGfd/01xLhh8HXLcI9peE9nNeQKBgQDJaFWfOzgTyDMjh/0v\ne4FFY5OepRrXAAHBpserwoqq5HlHxQTT/x4BIPA/bmQfAxwNt/6zDbN4VVqzHQDl\nW+uOqIWFzDWX1o1Q6r9Hlt261FhFk2VgCJAE6L0zuBXJeTlYmM07d2H03pa62uzz\njST0EFZx5of1VIaAqlC6vCAhKQKBgQC7jgK+XjRJro3Tmocvtt2DmAUvOR49wcht\nCZOJ7CaVPCxNXVRwncZydYSxEPv4D7BFrmfvFFA3Pjb3JgoCxmg5o1A9RNG9Yl81\nnLKCSlI5xlMF7JLfm6jYwdxY8lzAXA+6BUfDlFAKx5be0dpmJWgMd5D6CTVyW7sg\nGN4fWZezrQKBgQCGOxEFhJRFKuJaReHJ6YgoVMsnqmYO8KQ7Cgp9QLTmXEswN/CV\n0auPmQJFZC86M/pYck4/y1vXURuX0DaupeqCM3J5z7XQMmAQk8NT1QqF38vM4wVn\nUY2al/qxI3jxw+ciUwRFI7WXW1odwpa1Y1ZDizfxxXDLYsAZtGkFaygGsQKBgQCe\n+3zl47LM9nLweN+5GXhh8P4MDo3M6bO8gc6Xrh7yh6RCHCfUolkyct18vpnnp1zT\nZEhjx8NLYKh1DcCUo5x7py0AEpL7xyRPrLlAakGTCcMclXHWq/sPah0fJKpswFzw\nYUN4zQKgcJk53YcU6QZu8vdoi1/LxWg0h//ZcTd/rQKBgAMRpfJTZtV9XMreNJNA\ntlrW6J3aGMvFn+u0Xx2s1Ht2Re4oYtXF5RBizstEiVu+1X+p+dFXkFajXxAYN7ww\n77NqKDYM1VKZ0FDFbSgFCZOagatYUYQbH2+O3LmgLpK0K7FOxyqsoDBLMxHhS6ym\nS9E+xNkjHFgkfx8lBlXeUDau\n-----END PRIVATE KEY-----\n","client_email": "bigqueryreader@omnitrack-test-359902.iam.gserviceaccount.com","client_id": "100237296756059159912","auth_uri": "https://accounts.google.com/o/oauth2/auth","token_uri": "https://oauth2.googleapis.com/token","auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs","client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bigqueryreader%40omnitrack-test-359902.iam.gserviceaccount.com"}'

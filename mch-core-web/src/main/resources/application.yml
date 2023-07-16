@@ -1,0 +1,50 @@
+env:
+  timezone: Asia/Shanghai
+server:
+   port: 8001
+   shutdown: graceful
+   servlet:
+     context-path: /
+
+spring:
+   application:
+      name: mch-core-svc
+   profiles:
+      active: local
+   main:
+     allow-bean-definition-overriding: true
+     banner-mode: 'off'
+   http:
+     encoding:
+       force: true
+       charset: UTF-8
+
+   jackson:
+      default-property-inclusion: non-null
+#      property-naming-strategy: SNAKE_CASE
+      date-format: yyyy-MM-dd HH:mm:ss
+      serialization:
+         write-dates-as-timestamps: false
+
+
+
+mybatis:
+   configuration:
+      map-underscore-to-camel-case: true
+      default-fetch-size: 100
+      default-statement-timeout: 30
+   mapper-locations: classpath:/mapping/*Mapper.xml
+   typeAliasesPackage: cn.sino.trackify.entity
+
+swagger:
+  base-package: cn.rto.mch.core.controllers
+
+feign:
+   hystrix:
+      enabled: true
+   client:
+      config:
+         default:
+            connectTimeout: 30000
+            readTimeout: 30000
+

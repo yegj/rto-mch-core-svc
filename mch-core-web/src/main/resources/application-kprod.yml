@@ -1,0 +1,175 @@
+apollo:
+  bootstrap:
+    enabled: false
+mock_backend: true
+spring:
+   application:
+      name: ${RTO_TRACKIFY_NAME:rto-trackify-service}
+   redis:
+      host: localhost
+      timeout: 3000
+      database: ${RTO_REDIS_INDEX:0}
+      password: itx6wex86L
+      jedis:
+         pool:
+            max-active: 10
+            max-wait: 1000
+            max-idle: 10
+            min-idle: 2
+   jpa:
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+   datasource:
+      url: jdbc:mysql://127.0.0.1:3306/sino_trackify?useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=Hongkong&zeroDateTimeBehavior=convertToNull
+      username: sino_trackify
+      password: lanN_Ya3SujgFe
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+      druid:
+         initial-size: 5
+         min-idle: 5
+         max-active: 20
+         max-wait: 60000
+         time-between-eviction-runs-millis: 60000
+         min-evictable-idle-time-millis: 300000
+         validation-query: SELECT 1 FROM DUAL
+         test-while-idle: true
+         test-on-borrow: false
+         test-on-return: false
+         pool-prepared-statements: true
+         max-pool-prepared-statement-per-connection-size: 20
+         filters: stat,wall,config
+         filter:
+            stat:
+               log-slow-sql: true
+               merge-sql: true
+               slow-sql-millis: 4000
+         connection-properties: druid.stat.mergeSql=false;druid.stat.slowSqlMillis=3000
+         web-stat-filter:
+            enabled: true
+            url-pattern: /*
+            exclusions: '*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*'
+         stat-view-servlet:
+            enabled: true
+            url-pattern: /druid/*
+            reset-enable: false
+            allow: ''
+            login-username: admin
+            login-password: Fs123456
+eureka:
+   client:
+      serviceUrl:
+         defaultZone: http://127.0.0.1:7078/eureka
+         #defaultZone: http://192.168.0.40:7081/eureka,http://192.168.0.42:7081/eureka
+sino:
+   auth-center:
+      host: http://jc-merchant.omnitrack-api.rto.ai
+   trackify:
+      mainUrl: https://rto-study.oss-us-west-1.aliyuncs.com/prod-v4.js
+      cashe-version: v4
+      domain: https://api-rto-trackify-5kccd7c.uc.gateway.dev
+      googleRun: https://omnitrack-event-api.rto.ai
+      phpDomain: https://php-merchant-api-eoyon7vptq-uc.a.run.app
+      nodeJsDomain: https://node-merchant-api-eoyon7vptq-uc.a.run.app
+rto:
+  config:
+    txON: 1
+    app:
+      tracking-pd:
+        appName: tracking-pd
+        facebookAppName: omnitrack-facebook
+        googleAppName: omnitrack-google
+        platform: '[{"name":"FACEBOOK","pixelReg":"^\\d{15,16}$","pixelRegMsg":" FACEBOOK pixel id  must 15 or 16 digits"},{"name":"GOOGLE","pixelReg":"^UA-\\d{8,9}-\\d{1}$","pixelRegMsg":" GOOGLE pixel id  invalid"}]'
+        targetAreaTypes: Entire Store,Collection,Tag
+        ##第三方授权等级:空或0为无需第三方授权,2:google或facebook授权,3:google并且facebook授权
+        thridAuthLevel: 1
+        shopifyApiVersion: 2021-04
+        facebookApiVersion: v17.0
+        googleApiVersion: v3
+        webhookSubTopicAddress: 'pubsub://omnitrack-production:'
+        ##收费配置
+        billings:
+          rtoStandard:
+            billingCode: rtoStandard
+            type: recurringCharges
+            name: Standard
+            amount: 7.99
+            terms: 7.99/30
+            test: false
+            trialDays: 7
+            pixelSize: 5
+            desc: "For Advanced,Shopify and Basic"
+            events: ['Facebook Standard Events', 'Google Standard Events']
+            fb_server_api: true
+            audience_builder: 'Basic Audience Builder'
+            facebook_catalogs: []
+            domain: true
+            customer_support: 'Standard Customer support'
+            optimizeEvents: ['PageView', 'ViewCategory','ViewContent','AddToCart','ViewCart','InitiateCheckout','Purchase']
+          rtoAdvanced:
+            billingCode: rtoAdvanced
+            type: recurringCharges
+            name: Pro
+            amount: 24.99
+            terms: 24.99/30
+            test: false
+            trialDays: 7
+            pixelSize: 20
+            desc: 'For Plus,Advanced,Shopify and Basic'
+            events: ['Facebook Standard, Advanced and Super Events', 'Google Standard Events']
+            fb_server_api: true
+            audience_builder: 'Pro Audience Builder'
+            facebook_catalogs: []
+            domain: true
+            customer_support: 'Premium Customer support'
+            optimizeEvents: ['PageView', 'ViewContent', 'CustomizeProduct','AddToCart','AddShippingInfo','AddPaymentInfo','InitiateCheckout','Purchase']
+          rtoPremium:
+            billingCode: rtoPremium
+            type: recurringCharges
+            name: Premium
+            amount: 79.99
+            terms: 79.99/30
+            test: false
+            trialDays: 7
+            pixelSize: 100
+            desc: 'For Plus, Advanced, Shopify and Basic'
+            events: ['Facebook Standard, Advanced and Super Events', 'Google Standard, Advanced and Super Events']
+            fb_server_api: true
+            audience_builder: 'Pro Audience Builder'
+            facebook_catalogs: ['Pro Product Catalogs:', '20000 Products.', 'Hourly Sync']
+            domain: true
+            customer_support: 'Premium Customer support'
+            optimizeEvents: ['PageView', 'ViewContent', 'CustomizeProduct','AddToCart','AddShippingInfo','AddPaymentInfo','InitiateCheckout','Purchase']
+      EasyGTM:
+        appName: EasyGTM
+        facebookAppName: omnitrack-facebook
+        googleAppName: omnitrack-google
+        platform: '[{"name":"FACEBOOK","pixelReg":"^\\d{15,16}$","pixelRegMsg":" FACEBOOK pixel id  must 15 or 16 digits"},{"name":"GOOGLE","pixelReg":"^UA-\\d{8,9}-\\d{1}$","pixelRegMsg":" GOOGLE pixel id  invalid"}]'
+        targetAreaTypes: Entire Store,Collection,Tag
+        ##第三方授权等级:空或0为无需第三方授权,2:google或facebook授权,3:google并且facebook授权
+        thridAuthLevel: 1
+        shopifyApiVersion: 2021-04
+        facebookApiVersion: v17.0
+        googleApiVersion: v3
+        webhookSubTopicAddress: 'pubsub://omnitrack-production:gtm_'
+        ##收费配置
+        billings:
+          EasyGTMPro:
+            billingCode: EasyGTMPro
+            type: recurringCharges
+            name: "EasyGTM's Pro"
+            amount: 99.00
+            terms: 99.00/30
+            test: false
+            trialDays: 7
+            pixelSize: 100
+            desc: 'For Plus, Advanced, Shopify and Basic'
+            events: ['Facebook Standard, Advanced and Super Events', 'Google Standard, Advanced and Super Events']
+            fb_server_api: true
+            audience_builder: 'Pro Audience Builder'
+            facebook_catalogs: ['Pro Product Catalogs:', '20000 Products.', 'Hourly Sync']
+            domain: true
+            customer_support: 'Premium Customer support'
+            optimizeEvents: ['PageView', 'ViewContent', 'CustomizeProduct','AddToCart','AddShippingInfo','AddPaymentInfo','InitiateCheckout','Purchase']
+
+gcp:
+  serviceAccount: '{"type": "service_account","project_id": "omnitrack-production","private_key_id": "100324e52b08ca7a7f080a2164173f6f252bd5a3","private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDFW7F1IcSZ3DTA\nC5ywA70t6QuwX3wzKIpvCVEB0FJac0O9t1PjkbIuxzLAuZzFURoz/ac/lu9C0D0Q\n9bt2ltcgp2PumKYOMhgse7F9WuEjtAnrH/uh5inJCjeUGek0e7bJj7DxOwM4/yR2\nYA1sX4Esb1Qx1bxa4ESSTcgavU+xkgcWfJ567ZoA4syZrch7F7tbxiFl+QzesvuK\nQKzzRsKf8R64zLQXj+L1zXdADc6cKGHAC2TTJ6yp1pmwR7N/uQd9xAZ0d5x0lQ1B\nbDcZiFKixw//mDnEtGZUptCTQvpEFGZgJ3dBOEH36f3u/pZdzto/VNOxDX9AP8Y6\n46/toTPJAgMBAAECggEAUBoMtw1LFeWl9VJhOKFz3ZfqWh4PM1ZfhXyjB9jtK+//\njRdE8ab3SnwoEcfkJMPrnjFz+d/BYX1SY7lQ6muDiinWagdD0pwrapaTrdy+ZzbS\nFb/n6kiYKhQ/BZnUqKwTvtBW0ToR70bDHlaS7CsBKy9OXWGyLrI6sqTmNFAk8d0r\nkrtkJDwBZQmc/CLJ/oCvZEYuq1EMD5aSXYZPDzJc+LihRaol+XCH7bMZ7jXwKDkl\nm5H6w94YpPZf6dBNtlq37S6aoJa5RGrSlwIIdfbiRhN/wDBpiFNXA43xkA/URN3a\ncC2VzW1mM/pqo4x9YAkGsG2fSM5kXe4X41NxvScP1wKBgQDyJF1aODHpJmQTozZI\n8MXxel5H2xmhVFZ4knRro7FEUd8Ud5cEyVdA5cOSKugRTr1Y7y8BuErzKvOBzjnn\nYdOTTlAEiTmz4+NdmiY5XI2urtGRn3PPsYv2GA1ob6P5xALb340fLGf6R4RyPbSy\nrrFUSTyThrvTxqNqPNG+7JhYHwKBgQDQpzKghHcfJtWcJTf9zESTVeMbpEsHp2ul\nasDA2yfLbs0xb95pLECeHU9o1KWjJGWLoZri2VUDV4YUvShDhLZ19kU7D5z/UgPu\nFmYFXFHKW9/Dh1rKB/JrSnafqBIplZKdFOcRlqNKTtqUg3OypLtR938y+J4kctrd\noIAA7SmXFwKBgQCgwR2syMPx6ofkNaXTdO2k7D1tbPsuDOS/dVOPJoSIO+ZjGyYK\ninS/5AobnxqkaubwBRLrDGPN3kT9d2EfyOWC1SnwaP4C/Jc0zCL2UAjL4MnG6Nol\nF9U4ky1LmVp+dfAD8v0opf19vj8i7O5q9elKcLijpH5MEYLqA+in3UEitwKBgE87\n3t7TzsSWo7Fq9Ms9IaFtkROzHQboDdnAIzhZQNBg4Czw1V3M/zDL4pblgYzlSmZu\n1PlmHIFrYDBJ8JtLL1q2TW3zLORMCdAE03MfrrOQlfWTVee4gtc5bLiOQ29lLErY\nYDLuqE2Uii6xiGMDaVrkCHqbrLocn35f75vqc8u7AoGBAOAGAcl3g9dAfIzgWDUQ\n1C0izZu11M0b7akZPTI8JmIpnyfSObjGF5ghCZSbwSyIXFShQb4WxAlZHGOK35gZ\nu7iFEtHg37sKT6Uz7/YCDfQZqVDC2SCI3yB0GAvlEq9fEcY+1bl5+ixDcHbhQ6pe\nf20NuZB02et05+6+dbZW7bOp\n-----END PRIVATE KEY-----\n","client_email": "bigqueryreader@omnitrack-production.iam.gserviceaccount.com","client_id": "104261433221240434327","auth_uri": "https://accounts.google.com/o/oauth2/auth","token_uri": "https://oauth2.googleapis.com/token","auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs","client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bigqueryreader%40omnitrack-production.iam.gserviceaccount.com"}'
