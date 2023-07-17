@@ -1,5 +1,6 @@
 package cn.rto.mch.core.dal.model;
 
+import cn.rto.mch.core.dal.base.BaseDO;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
@@ -28,6 +29,22 @@ public class WebSiteDO extends BaseDO {
 
 
     private String status;
+
+    /**
+     * 站点所在 第三方平台的id，如shopify，shopBase等
+     */
+    private String thirdPlatUserId;
+
+    // 第三方平台id
+    private String platId;
+
+    // 第三方平台名称 冗余字段
+    private String platName;
+
+    // 站点头像
+    private String picture;
+
+
 
     // 关联 shopify 的 shop信息，为了以后替换 其内部tenantUserId，所以用此字段包装
     // 目前数据库里面 1 website :N shopify info，这个是错误的，

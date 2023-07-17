@@ -1,4 +1,4 @@
-package cn.rto.mch.core.dal.model;
+package cn.rto.mch.core.dal.base;
 
 import lombok.Data;
 import lombok.Getter;

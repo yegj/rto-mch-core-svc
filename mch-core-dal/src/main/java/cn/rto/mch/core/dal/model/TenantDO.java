@@ -1,5 +1,6 @@
 package cn.rto.mch.core.dal.model;
 
+import cn.rto.mch.core.dal.base.BaseDO;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 

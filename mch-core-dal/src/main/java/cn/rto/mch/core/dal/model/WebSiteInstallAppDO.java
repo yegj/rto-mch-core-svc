@@ -1,5 +1,6 @@
 package cn.rto.mch.core.dal.model;
 
+import cn.rto.mch.core.dal.base.BaseDO;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
@@ -35,7 +36,16 @@ public class WebSiteInstallAppDO  extends BaseDO {
     // 卸载完成时间
     private Date unloadSuccTime;
 
+
+
+
+    // 旧套餐等级
+    private String oldBillingCode;
+    // 新套餐等级
+    private String billingCode;
+
     private String status;
+
 
     /**
      * @see WebSiteDO#rtoUserShopifyAuthId

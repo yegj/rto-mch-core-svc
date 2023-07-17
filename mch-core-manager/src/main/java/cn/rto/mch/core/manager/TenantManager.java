@@ -1,5 +1,6 @@
 package cn.rto.mch.core.manager;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TenantManager {
+
+    @Autowired
+    private TenantManager tenantManager;
 
 
 }

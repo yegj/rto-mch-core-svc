@@ -5,7 +5,7 @@ import tk.mybatis.mapper.common.Mapper;
 
 /**
  * ClassName: TenantMapper
- * Description: TODO
+ * Description: 租户
  * Author: guanjieye
  * Date: 2023/07/17
  */
